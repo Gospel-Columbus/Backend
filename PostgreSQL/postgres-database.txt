@@ -1,0 +1,552 @@
+POSTGRES COMMAND 
+
+psql -U postgres 
+
+#creating database 
+
+postgres=# CREATE DATABASE tuto;
+
+# droping database 
+
+postgres=# DROP DATABASE tuto;
+
+#changing database
+
+postgres=#\c tuto
+
+tuto=#\c postgres
+
+# checking operating system 
+
+\! 
+
+# help on syntax of SQL commands 
+
+\h
+
+# help on psql command-line options and special variable
+
+\?
+
+# quitting database 
+
+\q
+
+# clearing database command 
+
+\! cls 
+
+# execute commands from file 
+
+\i
+
+# show just tables 
+
+test=# \dt 
+
+
+# list tables,views and sequences 
+
+\d 
+
+# droping tables in postgres 
+
+tuto=# DROP TABLE person;
+
+tuto=#\d
+
+
+# To see the list of database 
+
+\l
+
+# describe the actual table name 
+
+test=# \d person 
+
+CREATE:
+
+create table person (
+
+id BIGSERIAL NOT NULL PRIMARY KEY,
+
+first_name VARCHAR(50) NOT NULL,
+
+last_name VARCHAR(50) NOT NULL,
+
+gender VARCHAR(7) NOT NULL,
+
+date_of_birth DATE NOTL NULL,
+
+email VARCHAR(150));
+
+INSERT:
+
+insert into person (first_name, last_name, gender, date_of_birth)
+
+values ('Anne', 'Smith', 'FEMALE', date '1988-01-09');
+
+insert into person (first_name, last_name, gender, date_of_birth)
+
+values ('michael', 'simpson', 'MALE', date '1999-07-03');
+
+
+SELECT:
+
+SELECT * FROM person;
+
+SELECT first_name FROM person;
+
+SELECT first_name, last_name FROM person;
+
+SELECT email FROM person;
+
+
+ORDER BY:
+
+SELECT * FROM person ORDER BY country;
+
+SELECT * FROM person ORDER BY first_name DESC;
+
+SELECT * FROM person ORDER BY email ASC;
+
+
+DISTINCT:
+
+SELECT country FROM person ORDER BY country;
+
+SELECT DISTINCT country FROM person ORDER BY country;
+
+SELECT DISTINCT country FROM person ORDER BY country DESC;
+
+
+WHERE CLAUSE and AND:
+
+SELECT * FROM person WHERE gender = 'Female';
+
+SELECT * FROM person WHERE gender = 'Male';
+
+SELECT * FROM person WHERE gender = 'Male' AND country = 'Poland';
+
+SELECT * FROM person WHERE gender = 'Male' AND (country = 'Poland' OR country = 'China');
+
+SELECT * FROM person WHERE gender = 'Male' AND (country = 'Poland' OR country = 'China') AND last_name = 'McCrow';
+
+
+COMPARISON OPERATOR:
+
+SELECT 1 = 1;
+
+SELECT 1 = 3;
+
+SELECT 1 < 2;
+
+SELECT 1 <= 2;
+
+SELECT 1 <> 2; not equals
+
+SELECT 'COLUMBUS' <> 'columbus';
+
+SELECT 'COLUMBUS' = 'COLUMBUS';
+
+
+LIMIT, OFFSET AND FETCH:
+
+SELECT * FROM person LIMIT 10;
+
+SELECT * FROM person LIMIT 5;
+
+SELECT * FROM person OFFSET 5 LIMIT 5;
+
+SELECT * FROM person OFFSET 5;
+
+SELECT * FROM person OFFSET 5 FETCH FIRST 5 ROW ONLY;
+
+
+IN:
+
+SELECT * FROM person WHERE country = 'China' OR country = 'France' OR country = 'Brazil';
+
+SELECT * FROM person WHERE country IN ('China', 'Brazil', 'France');
+
+SELECT * FROM person WHERE country IN ('China', 'Brazil', 'France', 'Mexico', 'Nigeria');
+
+SELECT * FROM person WHERE country IN ('China', 'Brazil', 'France', 'Mexico', 'Nigeria') ORDER BY country;
+
+
+BETWEEN:
+
+SELECT * FROM person WHERE date_of_birth BETWEEN DATE '2024-01-01' AND '2024-09-2';
+
+
+LIKE AND ILIKE:
+
+SELECT * FROM person WHERE email LIKE '%.com';
+
+SELECT * FROM person WHERE email LIKE '%@github.com';
+
+SELECT * FROM person WHERE email LIKE '%@weebly.com';
+
+SELECT * FROM person WHERE email LIKE '%@google.%';
+
+SELECT * FROM person WHERE email LIKE '________@%'; characters with eight underscore 
+
+SELECT * FROM person WHERE email LIKE '________o@%'; characters with eight underscore and o
+
+SELECT * FROM person WHERE country LIKE 'P%';
+
+
+GROUP BY:
+
+SELECT DISTINCT country FROM person;
+
+SELECT country, COUNT(*) FROM person GROUP BY country;
+
+SELECT country, COUNT(*) FROM person GROUP BY country ORDER BY country;
+
+SELECT country, COUNT(*) FROM person GROUP BY country HAVING COUNT(*) > 5 ORDER BY country; //show country with atleast 5 or more people 
+
+SELECT country, COUNT(*) FROM person GROUP BY country HAVING COUNT(*) > 41 ORDER BY country; // greater than 41 
+
+SELECT country, COUNT(*) FROM person GROUP BY country HAVING COUNT(*) > 45 ORDER BY country; // greater than 45 
+
+SELECT country, COUNT(*) FROM person GROUP BY country HAVING COUNT(*) <= 180 ORDER BY country;
+
+
+MAX,MIN AVERAGE:
+
+SELECT MAX(price) FROM cars; // maximum price of cars
+
+SELECT MIN(price) FROM cars; //minimum price of cars 
+
+SELECT AVG(7.20) FROM cars; //average price of cars
+
+SELECT ROUND(AVG(8.50)) FROM cars; // round average price of cars 
+
+SELECT make, model, MIN(price) FROM cars GROUP BY make, model;
+
+SELECT make, MIN(price) FROM cars GROUP BY make;
+
+SELECT make, MAX(price) FROM cars GROUP BY make;
+
+
+SUM:
+
+SELECT SUM(5.60) FROM cars;
+
+SELECT make,SUM(4.90) FROM cars GROUP BY make;
+
+
+BASICS OF ARITHMETIC OPERATORS:
+
+SELECT 10 + 2;
+
+SELECT 10 - 2;
+
+SELECT 10 / 2;
+
+SELECT 10 ^ 2; // TEN RISE TO POWER 2 
+
+SELECT 10 % 3;
+
+
+ARITHMETIC OPERATORS ROUND:
+
+SELECT id, make, model, price FROM cars;
+
+SELECT id, make, model, price, 5.44 * .10 FROM cars;
+
+SELECT id, make, model, price, ROUND(5.44 * .10,2), ROUND(5.44 - (5.44 *.10)) FROM cars;
+
+
+ALIAS:
+
+SELECT id, make, model, price AS original_price, ROUND(5.44 * .10,2) AS ten_percent, ROUND(5.44 - (5.44 * .10),2) AS discount_after_ten_percent FROM car;
+
+
+COALESCE:
+
+SELECT COALESCE(1);
+
+SELECT COALESCE(1) AS number;
+
+SELECT COALESCE(null, 1) AS number;
+
+SELECT COALESCE(null, null, 1) AS number;
+
+SELECT COALESCE(null, null, 1, 10) AS number;
+
+SELECT COALESCE(email, 'Email not provided') FROM person;
+
+
+NULLIF:
+
+SELECT NULLIF(10, 10);
+
+SELECT NULLIF(10, 1);
+
+SELECT NULLIF(10, 19);
+
+SELECT NULLIF(100, 19);
+
+SELECT COALESCE(10 / NULLIF(0, 0), 0);
+
+
+
+TIMESTAMPS AND DATES:
+
+SELECT NOW();
+
+SELECT NOW()::DATE;
+
+SELECT NOW()::TIME;
+
+SELECT NOW()::TIME with time zone;
+
+SELECT NOW()::TIME without time zone;
+
+SELECT NOW()::TIMESTAMP with time zone;
+
+SELECT NOW()::TIME without time zone;
+
+
+
+ADDING AND SUBTRACTING DATES:
+
+SELECT NOW();
+
+SELECT NOW() - INTERVAL '1 YEAR';
+
+SELECT NOW() - INTERVAL '10 YEARS';
+
+SELECT NOW() - INTERVAL '10 MONTHS';
+
+SELECT NOW() - INTERVAL '10 DAYS';
+
+SELECT NOW()::DATE + INTERVAL '10 MONTHS';
+
+SELECT (NOW() + INTERVAL '10 MONTHS')::DATE;EXTRACTING FIELDS:SELECT NOW();
+
+SELECT EXTRACT(YEAR FROM NOW());
+
+SELECT EXTRACT(MONTH FROM NOW());
+
+SELECT EXTRACT(DAY FROM NOW());
+
+SELECT EXTRACT(DOW FROM NOW());
+
+SELECT EXTRACT(CENTURY FROM NOW());
+
+
+
+AGE FUNCTION:
+
+\d person
+
+SELECT first_name, last_name, email, gender, date_of_birth, country AGE NOW(), (date_of_birth) AS age FROM person;
+
+
+
+PRIMARY KEYS:
+
+ALTERS TABLE person DROP CONSTRAINT person_pkey;  for dropping a constraint
+
+insert into person (id, first_name, last_name, email, gender, date_of_birth, country ) values (1, 'Ursulina', 'Harcourt', 'uharcourt0@newsvine.com', 'Female', '2023-09-08', 'Indonesia');
+
+SELECT * FROM PERSON WHERE id = 1;
+
+
+DROPPING PRIMARY KEY:ALTER TABLE person DROP CONSTRAINT person_pkey;
+
+insert into person (id, first_name, last_name, email, gender, date_of_birth, country ) values (1, 'Ursulina', 'Harcourt', 'uharcourt0@newsvine.com', 'Female', '2023-09-08', 'Indonesia');
+
+
+
+ADDING PRIMARY KEY:
+
+DELETE FROM person WHERE id = 1;
+
+insert into person (id, first_name, last_name, email, gender, date_of_birth, country ) values (1, 'Ursulina', 'Harcourt', 'uharcourt0@newsvine.com', 'Female', '2023-09-08', 'Indonesia');
+
+SELECT * FROM PERSON WHERE id = 1;
+
+ALTER TABLE person ADD PRIMARY KEY (id);
+\d person
+
+
+
+UNIQUE CONSTRAINT:
+
+SELECT email, count() FROM person GROUP BY email;SELECT email, count() FROM person GROUP BY email HAVING COUNT() > 1;
+
+
+
+CHECK CONSTRAINT:
+
+SELECT DISTINCT gender FROM person;
+
+
+
+DELETE RECORD:
+
+DELETE FROM person;
+
+DELETE FROM person WHERE id = 1;
+
+DELETE FROM person WHERE gender = 'Female' AND country = 'France'; 
+
+SELECT * FROM person WHERE gender = 'Female' AND country = 'France';
+
+SELECT * FROM person WHERE gender = 'Male' AND country = 'France';
+
+DELETE FROM person WHERE gender = 'Male';
+
+
+
+UPDATE RECORD:
+
+UPDATE person SET email = 'der@gmail.com' WHERE id = 5;
+
+SELECT * FROM person WHERE id = 5;
+
+UPDATE person SET first_name = 'Dery', last_name = 'wilson', email = 'derywilson@hotmail.com' WHERE id = 5;
+
+SELECT * FROM person WHERE id = 5;
+
+ON CONFLICT DO NOTHING:
+
+SELECT * FROM person WHERE id = 11;
+
+INSERT INTO person (id, first_name, last_name, email, gender, date_of_birth, country)VALUES(11, 'Yank', 'Sline', 'yslinea@ezinearticles.com', 'Male', DATE '2023-04-05', 'Madagascar')ON CONFLICT (id) DO NOTHING;
+
+\d person
+
+
+
+UPSERT:
+
+INSERT INTO person (id, first_name, last_name, email, gender, date_of_birth, country)VALUES(11, 'Yank', 'Sline', 'yslinea@ezinearticles.org', 'Male', DATE '2023-04-05', 'Madagascar')ON CONFLICT (id) DO UPDATE SET email = EXCLUDED.email;SELECT * FROM person WHERE id = 11;
+
+INSERT INTO person (id, first_name, last_name, email, gender, date_of_birth, country)VALUES(11, 'Yank', 'james', 'yslinea@ezinearticles.org', 'Male', DATE '2023-04-05', 'Madagascar')ON CONFLICT (id) DO UPDATE SET email = EXCLUDED.email,last_name = EXCLUDED.last_name, first_name = EXCLUDED.first_name;
+
+
+
+FOREIGN KEYS,JOINS AND RELATIONSHIPS:
+
+EXPLAINATIONADD RELATIONSHIPS BETWEEN TABLES:
+
+\dtDROP TABLE person;
+
+DROP TABLE car;
+
+UPDATING FOREIGN KEY COLUMNS:
+
+SELECT * FROM person;
+
+SELECT * FROM cars;
+
+UPDATE person SET car_id = 2 WHERE id = 1;
+
+UPDATE person SET car_id = 2 WHERE id = 2;
+
+SELECT * FROM person;
+
+INNER JOINS:SELECT * FROM personJOIN cars ON person.car_id = CAST(cars.id AS VARCHAR);
+
+\x
+
+SELECT person.first_name, cars.make, cars.model, cars.priceFROM person\JOIN cars ON person.car_id = CAST(cars.id AS VARCHAR);
+
+
+
+LEFT JOINS:
+
+SELECT * FROM personLEFT JOIN cars ON person.car_id = CAST(cars.id AS VARCHAR);
+
+SELECT * FROM person WHERE car_id IS NULL;
+
+SELECT * FROM personJOIN cars ON person.car_id = CAST(cars.id AS VARCHAR)WHERE cars IS NULL;
+
+
+
+DELETING RECORDS WITH FOREIGN KEYS:
+
+insert into person (id, first_name, last_name, email, gender, date_of_birth, country ) values (9000, 'john', 'smith', null, 'Female', '2023-01-19', 'France');
+
+SELECT * FROM person WHERE id = 9;
+
+UPDATE person SET car_id = 20 WHERE id = 9;
+
+SELECT * FROM cars WHERE id = 20;
+
+DELETE FROM cars WHERE id = 20;
+
+
+
+POSTGRESQL SETUP
+
+*CREATE A DATABASE CALLED myproject IN PG ADMIN 4 
+
+*GO TO settings.py IN myproject FOLDER / DJANGO PROJECT
+
+*GO TO DATABASE IN settings.py AND TYPE THIS
+
+# Database# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
+
+DATABASES = {
+    'default': {
+
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'myproject',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'localhost'
+    }
+}
+
+
+# INSTALL PSYCOPG2
+
+C:\Users\HP\Desktop\django-tuto\myproject>pip install psycopg2
+
+C:\Users\HP\Desktop\django-tuto\myproject>pip install Pillow
+
+C:\Users\HP\Desktop\django-tuto\myproject>python manage.py makemigrations
+
+C:\Users\HP\Desktop\django-tuto\myproject>python manage.py migrate
+
+* GO TO PG ADMIN 4 AND 
+
+1 CLICK ON Databases
+
+2 CLICK ON myproject
+
+3 CLICK ON schemas
+
+4 CLICK ON Tables
+
+5 CLICK ON myapp_feature
+
+6 GO TO View/Edit Data
+
+7 CLICK ON ALL ROWS
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,33 @@
+C:\Users\Hp>cd desktop
+
+C:\Users\Hp\Desktop>mkdir djanfile
+
+C:\Users\Hp\Desktop>cd djanfile
+
+C:\Users\Hp\Desktop\djanfile>pip install django 
+
+C:\Users\Hp\Desktop\djanfile>pip install virtualenvwrapper-win 
+
+C:\Users\Hp\Desktop\djanfile>mkvirtualenv mylink 
+
+(mylink) C:\Users\Hp\Desktop\djanfile>pip install django 
+
+(mylink) C:\Users\Hp\Desktop\djanfile>python -m django --version
+
+(mylink) C:\Users\Hp\Desktop\djanfile>django-admin startproject myproject 
+
+(mylink) C:\Users\Hp\Desktop\djanfile>cd myproject 
+
+(mylink) C:\Users\Hp\Desktop\djanfile\myproject>deactivate 
+
+C:\Users\Hp\Desktop\djanfile\myproject>
+
+C:\Users\Hp\Desktop\djanfile\myproject>workon mylink 
+
+(mylink) C:\Users\Hp\Desktop\djanfile\myproject>
+
+(mylink) C:\Users\Hp\Desktop\djanfile\myproject>python -m pip install --upgrade pip 
+
+(mysite) C:\Users\Hp\Desktop\Django-Course\devsearch>python manage.py startapp projects
+
+

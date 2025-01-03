@@ -1,0 +1,241 @@
+Configuring Git:
+
+git config --system  // System
+
+git config --global  // User 
+
+
+
+git config --global user.name "HP"
+
+git config --global user.email "columbusgospel7@gmail.com"
+
+git config --list 
+
+
+Retrieving Configuration Settings:
+
+git config user.name 
+
+git config user.email
+
+
+Creating a File and Directory:
+
+cd desktop
+
+mkdir myapp
+
+cd myapp
+
+touch index.html 
+
+touch app.js 
+
+
+Initializing Empty git Repository:
+
+cd desktop
+
+cd myapp
+
+git init 
+
+
+Adding Files to Stagging Index:
+
+git status
+
+git add app.js 
+
+git add index.html 
+
+git status 
+
+git rm --cached app.js 
+
+git status 
+
+git add app.js 
+
+git status 
+
+
+More Ways to Add Files to Stagging Area:
+
+git rm --cached app.js
+
+git rm --cached index.html
+
+git status 
+
+git add *.html 
+
+git add .
+
+
+Committing File into Repository:
+
+git commit -m"Adding two files"
+
+git status 
+
+
+Using git Help:
+
+git help
+
+git --version
+
+git --help
+
+git help log 
+
+git help bisect
+
+
+
+Creating gitignore File:
+
+touch .gitignore
+
+NOTE:Use The Notepad 
+
+git status 
+
+git add .
+
+
+Creating git branch:
+
+git branch login 
+
+git status 
+
+git checkout login 
+
+git status 
+
+touch userlogin.html 
+
+git status 
+
+git add .
+
+git commit -m"commiting userlogin.html"
+
+git status 
+
+
+Merging git Branch:
+
+git checkout master 
+
+git merge login 
+
+// Create a Remote Repository
+
+Creating README.md File:
+
+touch README.md 
+
+git add README.md 
+
+git status 
+
+git commit -m"README.md"
+
+git status 
+
+git push
+
+
+
+Cloning a Remote Repository:
+
+cd desktop
+
+mkdir myapp2
+
+cd myapps 
+
+git clone https://github.com/Gospel-Columbus/macro.git 
+
+
+Forking your Own Repository
+
+cd desktop
+
+cd myapp
+
+git clone https://github.com/Gospel-Columbus/macro.git 
+
+cd macro 
+
+git remote -v
+
+git remote add upstream https://github.com/Gospel-Columbus/macro.git
+
+git remote -v 
+
+
+Getting Updates using pull:
+
+cd desktop
+
+cd myapp
+
+git pull 
+
+
+Viewing the Commit Logs:
+
+git log 
+
+TYPE: q to quit 
+
+git log -n5 
+
+git log --since=2024-04-11 // year,month,day
+
+
+GIT HEAD:
+
+cat .git/HEAD
+
+# Removing__Pycache__Files From git 
+
+
+//NOTE:mylist is a django project name 
+
+
+git rm -r --cached mylist/__Pycache__
+
+git status 
+
+Adding the __Pycache__ to the .gitignore File 
+
+echo "__Pycache__">>.gitignore 
+
+git status 
+
+git add .gitignore
+
+Committing changes to github 
+
+//NOTE:Ensure that you turn on your data connection while push to github 
+
+git status 
+
+git commit -am "Displaying database items"
+
+git status 
+
+git push
+
+
+
+
+
+
+
